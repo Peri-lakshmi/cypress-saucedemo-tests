@@ -7,6 +7,7 @@ export default defineConfig({
     specPattern: 'cypress/e2e/**/*.cy.ts',
     viewportWidth: 1280,
     viewportHeight: 800,
+    defaultCommandTimeout: 10000,
     setupNodeEvents(on, config) {
       // no custom node event listeners needed for this project yet
       return config;

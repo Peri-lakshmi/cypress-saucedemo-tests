@@ -10,6 +10,8 @@ describe('Product sorting', () => {
   });
 
   it('sorts products by name A to Z (default state)', () => {
+    cy.get('[data-test="product-sort-container"]').select('az');
+
     cy.get('.inventory_item_name').then(($items) => {
       const names = [...$items].map((el) => el.textContent || '');
       const sortedNames = [...names].sort((a, b) => a.localeCompare(b));

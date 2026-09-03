@@ -34,7 +34,7 @@ describe('Login', () => {
       .and('contain.text', 'Username and password do not match any user in this service');
 
     // and we should still be on the login page, not redirected anywhere
-    cy.url().should('eq', 'https://www.saucedemo.com/');
+    cy.url().should('eq', Cypress.config().baseUrl + '/');
   });
 
   it('shows an error when the username does not exist', () => {
@@ -113,7 +113,7 @@ describe('Login', () => {
     cy.get('#react-burger-menu-btn').click();
     cy.get('#logout_sidebar_link').should('be.visible').click();
 
-    cy.url().should('eq', 'https://www.saucedemo.com/');
+    cy.url().should('eq', Cypress.config().baseUrl + '/');
     cy.get('#login-button').should('be.visible');
   });
 });
