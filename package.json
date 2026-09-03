@@ -1,0 +1,20 @@
+{
+  "name": "cypress-saucedemo-tests",
+  "version": "1.0.0",
+  "description": "Cypress + TypeScript E2E test suite for saucedemo.com",
+  "scripts": {
+    "cypress:open": "cypress open",
+    "cypress:run": "cypress run",
+    "test": "cypress run",
+    "test:report": "rimraf cypress/reports && cypress run --reporter mochawesome --reporter-options reportDir=cypress/reports/raw,overwrite=false,html=false,json=true && npm run report:merge && npm run report:generate",
+    "report:merge": "mochawesome-merge cypress/reports/raw/*.json > cypress/reports/merged-report.json",
+   "report:generate": "marge cypress/reports/merged-report.json --reportDir . --inline --charts --reportTitle \"SauceDemo Test Results\" --reportPageTitle \"SauceDemo E2E Test Report\""  },
+  "devDependencies": {
+    "cypress": "^13.15.0",
+    "typescript": "^5.5.4",
+    "mochawesome": "^7.1.3",
+    "mochawesome-merge": "^4.3.0",
+    "mochawesome-report-generator": "^6.2.0",
+    "rimraf": "^6.0.1"
+  }
+}
