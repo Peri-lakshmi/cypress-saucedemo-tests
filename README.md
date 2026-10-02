@@ -1,14 +1,26 @@
 # Cypress + TypeScript E2E Test Suite — SauceDemo
 
+![Cypress Tests](https://github.com/Peri-lakshmi/cypress-saucedemo-tests/actions/workflows/cypress.yml/badge.svg)
+
 End-to-end test automation for [saucedemo.com](https://www.saucedemo.com), a
-site built specifically for practicing QA automation. This suite covers
-login, cart, checkout, and product sorting, written in Cypress with
-TypeScript, with an HTML metrics report generated on demand.
+site built specifically for practicing QA automation. The suite covers login,
+cart, checkout and product-sorting flows, using Cypress and TypeScript.
+It includes Mochawesome HTML reporting and GitHub Actions CI for automated
+test execution on every push and pull request.
 
 I built this to show how I approach test design in practice: not just
 happy-path clicking, but the validation errors, edge cases, and quirky
 accounts (there's a locked-out user, a slow-loading user, etc.) that a
 real QA pass needs to catch.
+
+## Highlights
+
+- 31 automated E2E tests with positive, negative, validation and edge-case coverage
+- Cypress + TypeScript with typed reusable custom commands
+- Checkout business-rule validation: total equals subtotal + tax
+- Mochawesome HTML reporting with timing and pass/fail metrics
+- GitHub Actions CI runs on every push and pull request
+- Downloadable CI test-report artifact
 
 ## What's covered
 
@@ -77,13 +89,17 @@ same name, go one level deeper before running any commands.
 From inside the project folder, run:
 
 ```
-npm install
+npm ci
 ```
+
 
 This reads the `package.json` file and downloads Cypress, TypeScript,
 and the reporting tools into a `node_modules` folder. It can take a
 minute or two the first time. You'll know it worked if it finishes
 without red error text and you see a new `node_modules` folder appear.
+
+`npm ci` installs the exact dependency versions recorded in `package-lock.json`,
+which makes local and CI runs more reproducible.
 
 You may see some `npm audit` warnings about vulnerabilities after
 installing — these come from deep inside Cypress's own internal
@@ -125,8 +141,8 @@ npm run cypress:run
 ```
 
 This runs all spec files back to back and prints a pass/fail summary in
-the terminal. This is also exactly what happens automatically in GitHub
-Actions on every push (see `.github/workflows/cypress.yml`).
+the terminal. GitHub Actions also runs the full suite on every push and
+generates the HTML report (see `.github/workflows/cypress.yml`).
 
 ### Running just one file
 
@@ -148,7 +164,7 @@ duration, a pie chart, all in a clean HTML page — run:
 npm run test:report
 ```
 
-This does three things automatically, one after another:
+This runs the full suite and then does three things automatically:
 
 1. Runs every spec file and saves the raw JSON results into
    `cypress/reports/raw/` (one file per spec)
@@ -179,14 +195,7 @@ report and add it to this README, or to a `screenshots/` folder in the
 repo, so visitors see it immediately without needing to run anything
 themselves.
 
-### Metrics in CI
 
-Every push to GitHub also generates this same report automatically (see
-`.github/workflows/cypress.yml`) and uploads it as a downloadable
-artifact. To view it: go to the **Actions** tab on the repo → click the
-latest run → scroll down to **Artifacts** → download
-`cypress-test-report`, then open `merged-report.html` from the
-downloaded folder.
 
 ---
 
@@ -249,9 +258,10 @@ app still works (just slower) rather than timing out.
 
 Every push to this repository automatically triggers the test suite via
 GitHub Actions (see the workflow file in `.github/workflows/cypress.yml`),
-and also generates the same HTML metrics report described above.
+generates the same HTML metrics report described above, and uploads it as
+a downloadable artifact.
 
 To view a run's results: go to the **Actions** tab on the repo → click
 the latest run → check for a green checkmark (all tests passed) → scroll
-down to **Artifacts** to download the full report if you want to inspect
-it in detail.
+down to **Artifacts** → download `cypress-test-report` → open
+`merged-report.html` from the downloaded folder.
