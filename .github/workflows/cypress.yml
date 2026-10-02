@@ -21,6 +21,7 @@ jobs:
 
       - name: Run Cypress tests and generate Mochawesome report
         run: npm run test:report
+
       - name: Upload Cypress test report
         if: always()
         uses: actions/upload-artifact@v4
@@ -28,4 +29,20 @@ jobs:
           name: cypress-test-report
           path: cypress/reports/
           if-no-files-found: warn
+          
+      - name: Upload Cypress screenshots on failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: cypress-screenshots
+          path: cypress/screenshots/
+          if-no-files-found: ignore
+
+      - name: Upload Cypress videos on failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: cypress-videos
+          path: cypress/videos/
+          if-no-files-found: ignore
       
